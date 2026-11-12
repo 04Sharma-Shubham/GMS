@@ -1,0 +1,15 @@
+.env
+/config/config.local.php
+/tools/
+/storage/invoices/*
+/storage/logs/*
+/storage/receipts/*
+!/storage/invoices/.gitkeep
+!/storage/logs/.gitkeep
+!/storage/receipts/.gitkeep
+/assets/uploads/members/*
+/assets/uploads/logos/*
+!/assets/uploads/members/.gitkeep
+!/assets/uploads/logos/.gitkeep
+.DS_Store
+*.log

@@ -1,0 +1,65 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If the app lives in a subdirectory, change this to that path, for example /gms
+    RewriteBase /
+
+    RewriteRule ^(?:\.env(?:\..*)?|composer\.(?:json|lock)|package\.json)$ - [F,L]
+    RewriteRule ^(?:config|includes|database|storage|vendor|tools)(?:/|$) - [F,L]
+    RewriteRule ^cron/?$ - [F,L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^login/?$ login.php [L,QSA]
+    RewriteRule ^register/?$ register.php [L,QSA]
+    RewriteRule ^logout/?$ logout.php [L]
+    RewriteRule ^forgot/?$ forgot.php [L,QSA]
+    RewriteRule ^reset/?$ reset.php [L,QSA]
+    RewriteRule ^onboarding/?$ onboarding.php [L,QSA]
+
+    RewriteRule ^dashboard/?$ index.php [L,QSA]
+    RewriteRule ^assistant/?$ modules/assistant/index.php [L,QSA]
+
+    RewriteRule ^members/new/?$ modules/members/index.php?action=new [L,QSA]
+    RewriteRule ^members/([0-9]+)/edit/?$ modules/members/index.php?action=edit&id=$1 [L,QSA]
+    RewriteRule ^members/([0-9]+)/qr\.svg$ modules/members/qr.php?id=$1 [L,QSA]
+    RewriteRule ^members/([0-9]+)/?$ modules/members/view.php?id=$1 [L,QSA]
+    RewriteRule ^members/?$ modules/members/index.php [L,QSA]
+
+    RewriteRule ^memberships/?$ modules/memberships/index.php [L,QSA]
+    RewriteRule ^payments/?$ modules/payments/index.php [L,QSA]
+
+    RewriteRule ^invoices/([0-9]+)/pdf/?$ modules/invoices/download.php?id=$1 [L,QSA]
+    RewriteRule ^invoices/([0-9]+)/print/?$ modules/invoices/print.php?id=$1 [L,QSA]
+    RewriteRule ^invoices/([0-9]+)/?$ modules/invoices/view.php?id=$1 [L,QSA]
+    RewriteRule ^invoices/?$ modules/invoices/index.php [L,QSA]
+
+    RewriteRule ^attendance/kiosk/?$ modules/attendance/kiosk.php [L,QSA]
+    RewriteRule ^attendance/?$ modules/attendance/index.php [L,QSA]
+
+    RewriteRule ^trainers/([0-9]+)/?$ modules/trainers/view.php?id=$1 [L,QSA]
+    RewriteRule ^trainers/?$ modules/trainers/index.php [L,QSA]
+
+    RewriteRule ^expenses/receipt/([0-9]+)/?$ modules/expenses/receipt.php?id=$1 [L,QSA]
+    RewriteRule ^expenses/?$ modules/expenses/index.php [L,QSA]
+
+    RewriteRule ^reports/export/?$ modules/reports/export.php [L,QSA]
+    RewriteRule ^reports/?$ modules/reports/index.php [L,QSA]
+
+    RewriteRule ^notifications/?$ modules/notifications/index.php [L,QSA]
+    RewriteRule ^settings/?$ modules/settings/index.php [L,QSA]
+    RewriteRule ^automation/?$ modules/automation/index.php [L,QSA]
+    RewriteRule ^workouts/?$ modules/workouts/index.php [L,QSA]
+
+    RewriteRule ^media/invoice/?$ media/invoice.php [L,QSA]
+    RewriteRule ^api/([A-Za-z0-9_]+)/?$ api/$1.php [L,QSA]
+
+    RewriteRule ^ - [L]
+</IfModule>
+
+ErrorDocument 404 /404.php
